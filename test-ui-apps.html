@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Test UI apps | Unicorn.TAF</title>
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!-- Favicon
+    ================================================== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon.png">
+
+    <!-- Stylesheets
+    ================================================== -->
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+    <div id="hero" class="hero overlay subpage-hero elements-hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Test UI apps</h1>
+            </div><!-- /.hero-text -->
+        </div><!-- /.hero-content -->
+    </div><!-- /.hero -->
+
+    <main id="main" class="site-main">
+
+        <section class="site-section" id="helloWorld">
+            <div class="container">
+
+                <h1 class="text-center heading-separator">Sample "Hello World" app</h1>
+
+                <div class="row text-center" style="padding: 40px;">
+                    <div class="col-sm-6">
+                        <label for="titleDropdown">Title:</label><br/>
+                        <select class="selectpicker" id="titleDropdown">
+                            <option></option>
+                            <option>Mr</option>
+                            <option>Mrs</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" placeholder="Type your name" id="name">
+                    </div>
+                </div>
+                <div class="row text-center" style="padding: 40px;">
+                    <div class="col-sm-12">
+                        <a href="#helloWorld" class="btn btn-green mb-10" onclick="onHelloWorldClick()">Say 'Hello World'</a>
+                    </div>
+                </div>
+                <div class="row text-right">
+                    <a href="assets/HelloWorldGui.exe" class="link">Sample "Hello World" windows app</a>
+                </div>
+            </div>
+        </section>
+
+        <hr/>
+
+        <section class="site-section" id="signin">
+            <h1 class="text-center heading-separator">Sample sign in app</h1>
+
+            <div class="container" id="signinSection">
+                <div class="row text-center">
+                    <div class="row mt-50">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="email">E-mail:</label>
+                                        <input type="email" class="form-control" id="email">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 mt-20">
+                                    <div class="form-group">
+                                        <label for="name">Password:</label>
+                                        <input type="password" class="form-control" id="password">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center mt-20">
+                                <button href="#signin" class="btn btn-green" onclick="onSignin()">Sign in</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container" style="display: none;" id="contentSection">
+
+                <div class="row text-center">
+                    <h1>Welcome!</h1>
+                    <p>Welcome to test app. Here you can do some simple things with UI elements.</p>
+                </div>
+
+                <div class="selectpicker-checkboxes-radiobtn mt-50">
+                    <h2 class="text-center">Checkboxes, Radiobuttons, Select</h2>
+                    <div class="row">
+                        <div class="col-sm-4 mt-20">
+                            <div class="checkbox">
+                                <input type="checkbox" id="checkbox1" checked="true">
+                                <label for="checkbox1">Unicorn.ConsoleRunner</label>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" id="checkbox2">
+                                <label for="checkbox2">Unicorn.Toolbox</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 mt-20">
+                            <div class="radio-btn">
+                                <input type="radio" name="radio-btn" id="radio-btn1">
+                                <label for="radio-btn1">Report Portal Reports</label>
+                            </div>
+                            <div class="radio-btn">
+                                <input type="radio" name="radio-btn" id="radio-btn2" checked="true">
+                                <label for="radio-btn2">Allure Reports</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-4 mt-20">
+                            <select class="selectpicker" id="titleDropdown">
+                                <option>.NET</option>
+                                <option>.NET Framework</option>
+                                <option>.NET Core</option>
+                            </select>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="ui-tabs-accordion mt-50">
+                    <h2 class="text-center">Tabs and Accordion</h2>
+                    <div class="row">   
+
+                        <div class="col-md-6">
+
+                            <ul class="nav nav-tabs tab-style" role="tablist">
+                                <li class="active"><a aria-expanded="true" href="#htab1" role="tab" data-toggle="tab">Unit Tests</a></li>
+                                <li class=""><a aria-expanded="false" href="#htab2" role="tab" data-toggle="tab">UI Support</a></li>
+                                <li class=""><a aria-expanded="false" href="#htab3" role="tab" data-toggle="tab">API Support</a></li>
+                            </ul><!-- /.nav-tabs -->
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade active in" id="htab1">
+                                    <p>Test suites and tests parameterization by test data of any complexity. Test suites metadata and tagging. Tests categories. Tests dependency. Ability to parallel tests execution. Base for self-describing steps implementation. Verification by Asserts + rich matchers collection from the box. Integration with VS Test Explorer.</p>
+                                </div><!-- /.tab-pane  -->
+                                <div class="tab-pane fade" id="htab2">
+                                    <p>Ready for use common controls with predefined base actions for all platforms with detailed logging. Ability to use unified controls actions across all supported platforms. Single set of UI controls matchers for all supported platforms. Unified search for any platform controls using one [Find] attribute by unified locators. Ability to create custom complex controls based on already existing or "Base controls" for all supported platforms. Ability to construct blocks from any number of controls and reuse them across different page objects.</p>
+                                </div><!-- /.tab-pane -->
+                                <div class="tab-pane fade" id="htab3">
+                                    <p>REST API client implementation. Ability to download files. Rich API matchers collection from the box.</p>
+                                </div><!-- /.tab-pane  -->
+                            </div><!-- /.tab-content -->
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <br/><br/>
+                            <div class="panel-group accordion mb-50" id="accordion">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" aria-expanded="false" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                                Web GUI
+                                            </a>
+                                        </h4><!-- /.panel-title -->
+                                    </div><!-- /.panel-heading -->
+                                    <div aria-expanded="false" id="collapseOne" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <p>Unicorn.UI.Web: Interaction with web content in browser based on Selenium WebDriver.</p>
+                                        </div><!-- /.panel-body -->
+                                    </div><!-- /.panel-collapse -->
+                                </div><!-- /.panel -->
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a aria-expanded="true" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="">
+                                                Windows GUI
+                                            </a>
+                                        </h4><!-- /.panel-title -->
+                                    </div><!-- /.panel-heading -->
+                                    <div aria-expanded="true" id="collapseTwo" class="panel-collapse collapse in">
+                                        <div class="panel-body">
+                                            <p>Unicorn.UI.Win: Interaction with Windows native GUI based on Microsoft UI Automation.</p>
+                                        </div><!-- /.panel-body -->
+                                    </div><!-- /.panel-collapse -->
+                                </div><!-- /.panel -->
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a aria-expanded="false" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="collapsed">
+                                                Android GUI
+                                            </a>
+                                        </h4><!-- /.panel-title -->
+                                    </div><!-- /.panel-heading -->
+                                    <div aria-expanded="false" id="collapseThree" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <p>Unicorn.UI.Mobile: Interaction with web and native applications on Android devices based on Appium.</p>
+                                        </div><!-- /.panel-body -->
+                                    </div><!-- /.panel-collapse -->
+                                </div><!-- /.panel -->
+                            </div><!-- /.panel-group -->
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="ui-pagination mt-50" id="paginationDiv">
+                    <h2 class="text-center">Pagination</h2>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <ul class="pagination">
+                                <li><a href="#paginationDiv">&lt;&lt;</a></li>
+                                <li><a href="#paginationDiv">&lt;</a></li>
+                                <li class="more"><a href="#">...</a></li>
+                                <li><a href="#paginationDiv">31</a></li>
+                                <li class="active"><a href="#paginationDiv">32</a></li>
+                                <li><a href="#paginationDiv">33</a></li>
+                                <li class="more"><a href="#paginationDiv">...</a></li>
+                                <li><a href="#paginationDiv">&gt;</a></li>
+                                <li><a href="#paginationDiv">&gt;&gt;</a></li>
+                            </ul><!-- /.pagination -->
+                        </div>
+                    </div>
+                </div><!-- /.ui-pagination -->
+
+            </div>
+
+        </section>
+
+
+        <div id="modalWindow" class="modal">
+            <span class="w3-button w3-large w3-black w3-display-topright" title="Close Modal Image" style="position:relative;top: 0%;left: 95%;">
+                <a onclick="onModalClose()"><i class="fa fa-remove"/></i></a>
+            </span>
+            <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64" style="position:relative;top: 10%;left: 25%;">
+              <div id="caption" class="w3-opacity w3-large w3-center"/>
+            </div>
+          </div>
+
+    </main><!-- /#main -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/bootstrap-select.min.js"></script>
+    <script src="assets/js/jquery.slicknav.min.js"></script>
+    <script src="assets/js/jquery.countTo.min.js"></script>
+    <script src="assets/js/jquery.shuffle.min.js"></script>
+    <script src="assets/js/script.js"></script>
+    
+    <script>
+
+    function onModalClose() {
+        var window = document.getElementById("modalWindow");
+        window.style.display = "none";
+        window.className = "modal";
+        document.getElementById("caption").textContent = "";
+    }
+
+    function onSignin() {
+        var emailText = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var window = document.getElementById("modalWindow");
+        var captionText = document.getElementById("caption");
+
+        if (emailText == "") {
+            window.className = "modal error";
+            captionText.textContent = "Email is empty";
+            window.style.display = "block";
+        } else if (new RegExp("^.+@.+$").test(emailText) && password != "") {
+            document.getElementById("signinSection").style.display = "none";
+            document.getElementById("contentSection").style.display = "block";
+        }
+    }
+
+    function onHelloWorldClick() {
+        var name = document.getElementById("name").value.trim();        
+        var captionText = document.getElementById("caption");
+        var window = document.getElementById("modalWindow");
+        window.style.display = "block";
+
+        if(name == "")
+        {
+            window.className = "modal error";
+            captionText.textContent = "Error: name is empty";
+        }
+        else
+        {
+            var title = document.getElementById("titleDropdown").value;
+            captionText.textContent = title + " " + name + " said: 'Hello World!'";
+        }
+    }
+
+    </script>
+  
+</body>
+</html>

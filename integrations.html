@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Integrations | Unicorn.TAF</title>
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!-- Favicon
+    ================================================== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon.png">
+
+    <!-- Stylesheets
+    ================================================== -->
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+    <header id="masthead" class="site-header site-header-white">
+        <nav id="primary-navigation" class="site-navigation">
+            
+            <div class="container">
+                <a href="index.html"><img src="assets/img/unicorn-logo-v2.png" height="55" class="navbar-left"></a>
+
+                <div class="collapse navbar-collapse">
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="index.html">Home</a></li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Tools<i class="fa fa-caret-down hidden-xs" aria-hidden="true"></i></a>
+
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                <li><a href="console-runner.html">Console runner</a></li>
+                                <li><a href="toolbox.html">Toolbox</a></li>
+                            </ul>
+
+                        </li>
+                        <li><a href="integrations.html">Integrations</a></li>
+                        <li><a href="examples.html">Examples</a></li>
+                        <li>
+                            <a href="https://bitbucket.org/dobriyanchik/unicorntaf">
+                                <img src="assets/img/bitbucket-repo.png" alt="" title="Source code on Bitbucket">
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>   
+        </nav><!-- /.site-navigation -->
+    </header>
+
+    <div id="hero" class="hero overlay subpage-hero integrations-hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Integrations</h1>
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                  <li class="breadcrumb-item active">Integrations</li>
+                </ol>
+            </div><!-- /.hero-text -->
+        </div><!-- /.hero-content -->
+    </div><!-- /.hero -->
+
+    <main id="main" class="site-main">
+
+        <section class="site-section section-portfolio">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>EPAM Report Portal</h2>
+                        <p/>
+                        <p>Unicorn has ability to generate powerful test results report using 
+                            <a href="https://reportportal.io" class="link">EPAM Report Portal</a>
+                        </p>
+                        
+                        <p>
+                            Just deploy EPAM ReportPortal instance, add tests project dependency to 
+                            <a href="https://www.nuget.org/packages/Unicorn.ReportPortalAgent" class="link">Unicorn.ReportPortalAgent</a> 
+                            package and initialize reporter during tests assembly initialization.
+                        </p>
+                    </div>
+                    <div class="col-sm-6 hidden-xs text-center">
+                        <img src="assets/img/report-portal.png" height="360" alt="">
+                    </div>
+                </div>
+                <div class="row">
+                    <br/><br/>
+                    <pre>
+                        <code class="source-code">using Unicorn.Core.Testing.Tests.Attributes;
+using Unicorn.ReportPortalAgent;
+
+namespace Tests
+{
+    [TestsAssembly]
+    public static class TestsAssembly
+    {
+        private static ReportPortalReporterInstance rpInstance;
+
+        [RunInitialize]
+        public static void InitRun()
+        {
+            rpInstance = new ReportPortalReporterInstance(); <span class="sc-com">// Start new launch in Report Portal.</span>
+            
+            <span class="sc-com">/* in case you want to report into already started existing launch use
+             * rpInstance = new ReportPortalReporterInstance(existing_launch_id); */
+            </span>
+        }
+
+        [RunFinalize]
+        public static void FinalizeRun()
+        {
+            reporter.Dispose(); <span class="sc-com">// Finish launch in Report portal if it was not externally started.</span>
+            reporter = null;
+        }
+    }
+}                        </code>
+                    </pre>
+                </div>
+
+                <div class="row">
+                    <br/><br/>
+                    <p>
+                        Place <b>ReportPortal.config.json</b> configuration file to directory with test assemblies. Sample content is presented below:
+                    </p>
+                </div>
+
+                <div class="row">
+                    <br/><br/>
+                    <pre>
+                        <code class="source-code">{
+    "enabled": true,
+    "server": {
+        "url": "https://report-portal-uri/api/v1/",
+        "project": "Some project",
+        "authentication": {
+        "uuid": "your_uuid"
+        },
+    },
+    "launch": {
+        "name": "Unicorn tests run",
+        "description": "Unit tests of Unicorn Framework",
+        "debugMode": false,
+        "tags": [ "Windows 10", "UnicornFramework" ]
+    }
+}                        </code>
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="site-section section-portfolio gray-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 hidden-xs text-center">
+                        <img src="assets/img/allure.png" height="310" alt="">
+                    </div>
+                    <div class="col-sm-6">
+                        <h2>Allure Framework</h2>
+                        <p/>
+                        <p>Unicorn has ability to generate powerful test results report using 
+                            <a href="https://docs.qameta.io/allure/" class="link">Allure Framework</a>
+                        </p>
+                        
+                        <p>
+                            Just deploy Allure Framework instance, add tests project dependency to 
+                            <a href="https://www.nuget.org/packages/Unicorn.AllureAgent" class="link">Unicorn.AllureAgent</a> 
+                            package and initialize reporter during tests assembly initialization.
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <br/><br/>
+                    <pre>
+                        <code class="source-code">using Unicorn.AllureAgent;
+using Unicorn.Core.Testing.Tests.Attributes;
+
+namespace Tests
+{
+    [TestsAssembly]
+    public static class TestsAssembly
+    {
+        private static AllureReporterInstance reporter;
+
+        [RunInitialize]
+        public static void InitRun()
+        {
+            reporter = new AllureReporterInstance(); <span class="sc-com">// starts new launch in Allure.</span>
+        }
+
+        [RunFinalize]
+        public static void FinalizeRun()
+        {
+            reporter.Dispose(); <span class="sc-com">// Unsubscribe allure reporter from unicorn events.</span>
+            reporter = null;
+        }
+    }
+}                        </code>
+                    </pre>
+                </div>
+
+                <div class="row">
+                    <br/><br/>
+                    <p>
+                        Place <b>allureConfig.json</b> configuration file to directory with test assemblies. Sample content is presented below:
+                    </p>
+                </div>
+
+                <div class="row">
+                    <br/><br/>
+                    <pre>
+                        <code class="source-code">{
+    "allure": {
+        "directory": "path_to_directory_with_report"
+    }
+}                        </code>
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+    </main><!-- /#main -->
+
+    <main-footer></main-footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/bootstrap-select.min.js"></script>
+    <script src="assets/js/jquery.slicknav.min.js"></script>
+    <script src="assets/js/jquery.countTo.min.js"></script>
+    <script src="assets/js/jquery.shuffle.min.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/common-elements.js"></script>
+  
+</body>
+</html>

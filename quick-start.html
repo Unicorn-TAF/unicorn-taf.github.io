@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Quick Start | Unicorn.TAF</title>
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!-- Favicon
+    ================================================== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon.png">
+
+    <!-- Stylesheets
+    ================================================== -->
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+    <header id="masthead" class="site-header site-header-white">
+        <nav id="primary-navigation" class="site-navigation">
+            
+            <div class="container">
+                <a href="index.html"><img src="assets/img/unicorn-logo-v2.png" height="55" class="navbar-left"></a>
+
+                <div class="collapse navbar-collapse">
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="index.html">Home</a></li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Tools<i class="fa fa-caret-down hidden-xs" aria-hidden="true"></i></a>
+
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                <li><a href="console-runner.html">Console runner</a></li>
+                                <li><a href="toolbox.html">Toolbox</a></li>
+                            </ul>
+
+                        </li>
+                        <li><a href="integrations.html">Integrations</a></li>
+                        <li><a href="examples.html">Examples</a></li>
+                        <li>
+                            <a href="https://bitbucket.org/dobriyanchik/unicorntaf">
+                                <img src="assets/img/bitbucket-repo.png" alt="" title="Source code on Bitbucket">
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>   
+        </nav><!-- /.site-navigation -->
+    </header>
+
+    <div id="hero" class="hero overlay subpage-hero quick-start-hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Quick Start</h1>
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                  <li class="breadcrumb-item active">Quick Start</li>
+                </ol>
+            </div><!-- /.hero-text -->
+        </div><!-- /.hero-content -->
+    </div><!-- /.hero -->
+
+    <main id="main" class="site-main">
+
+        <section class="site-section">
+
+            <div class="container text-center spacing">
+                <h1>Your first web test</h1>
+            </div>
+
+            <div class="container">
+
+                <h2>Prerequisites</h2>
+                <div class="row spacing">
+                    <p>> .Net 5 or greater installed (unicorn also works on .Net Framework >= 4.5.2, but steps will differ)<br/>
+                    > Latest Unicorn.ConsoleRunner from 
+                        <a class="link" href="https://bitbucket.org/dobriyanchik/unicorntools/downloads/">Unicorn tools downloads</a>
+                        (download and unpack it at any place on disk).</p>
+                </div>
+
+                <h2>Create tests assembly</h2>
+
+                <div class="row spacing">
+                    <p>Create new library project. This will be your tests dll.</p>
+                    <pre><code class="source-code">dotnet new classlib -o HelloWorldTests
+cd HelloWorldTests</code></pre>
+                </div>
+
+                <div class="row spacing">
+                    <p>Install Unicorn packages for unit tests and Web UI + ChromeDriver package.</p>
+                    <pre><code class="source-code">dotnet add package Unicorn.Taf.Core
+dotnet add package Unicorn.UI.Core
+dotnet add package Unicorn.UI.Web
+dotnet add package Selenium.WebDriver.ChromeDriver</code></pre>
+                </div>
+
+                <div class="row spacing">
+                    <p>Add project property to copy all referenced assemblies into build directory into <b>.csproj</b>. 
+                        Full scope of binaries is required to run tests.
+                    </p>
+                    <pre><code class="source-code">&lt;PropertyGroup&gt;
+    &lt;CopyLocalLockFileAssemblies&gt;true&lt;/CopyLocalLockFileAssemblies&gt;
+&lt;/PropertyGroup&gt;</code></pre>
+                </div>
+
+                <div class="row spacing">
+                    <p>Let's add config file for unicorn framework (let's name it unicornConfig.json). The file can contain configuration of unicorn framework. 
+                        In case of specific properties absence default values are used. 
+                        See <a class="link" href="console-runner.html">Console runner page</a> for config details.<br/>
+                        In this demo the file will just contain some user defined properties (let's parameterize url to test website).<br/><br/>
+                        -- file <b>should have</b> <b><i>CopyAlways</i></b> or <b><i>PreserveNewest</i></b> attribute<br/>
+                        -- file <b>should not have</b> <b><i>UTF with BOM</i></b> encoding
+                    </p>
+
+                    <pre><code class="source-code">&lt;ItemGroup&gt;
+    &lt;Content Include="unicornConfig.json"&gt;
+        &lt;CopyToOutputDirectory&gt;PreserveNewest&lt;/CopyToOutputDirectory&gt;
+    &lt;/Content&gt;
+&lt;/ItemGroup&gt;</code></pre>
+
+                    <p>File contents:</p>
+                    <pre><code class="source-code">{
+    "userDefined": {
+        "siteUrl": "https://dobriyanchik.bitbucket.io/unicorn/test-ui-apps.html"
+    }
+}</code></pre>
+                </div>
+
+
+                <div class="row spacing">
+                    <p>Application under test is 'Sample "Hello World" app' on <a class="link" href="test-ui-apps.html">Test UI apps page</a>.
+                        Let's check positive scenario that non-error modal window shows message for specified title and name.<br/>
+                        Just add one more class which will contain test suite with a test.
+                    </p>
+                    <pre><code class="source-code">using Unicorn.Taf.Core;
+using Unicorn.Taf.Core.Testing;
+using Unicorn.Taf.Core.Testing.Attributes;
+using Unicorn.Taf.Core.Verification;
+using Unicorn.Taf.Core.Verification.Matchers;
+using Unicorn.UI.Core.Driver;
+using Unicorn.UI.Core.Matchers;
+using Unicorn.UI.Web;
+using Unicorn.UI.Web.Controls;
+using Unicorn.UI.Web.Controls.Typified;
+using Unicorn.UI.Web.Driver;
+
+namespace HelloWorldTests
+{
+    <span class="sc-com">// Test suite should be marked with [Suite] attribute and should inherit TestSuite.</span>
+    [Suite("Sample tests")] 
+    public class SampleTests : TestSuite
+    {
+        DesktopWebDriver driver;
+
+        <span class="sc-com">// This code is executed before suite execution.</span>
+        [BeforeSuite]
+        public void SuiteInit()
+        {
+            driver = new DesktopWebDriver(BrowserType.Chrome);
+            driver.Get(Config.GetUserDefinedSetting("siteUrl")); <span class="sc-com">// Get test site url from unicorn config.</span>
+        }
+
+        <span class="sc-com">// Test should be marked with [Test] attribute.</span>
+        [Test]
+        public void SimpleTest()
+        {
+            string title = "Mr";
+            string name = "NoName";
+
+            <span class="sc-com">/* It's possible to search for not only generic WebControl, but also any custom or typified control.
+            * Main typified controls are from the box. All controls have built-in detailed logging.
+            * Available locators are xpath, css, id, name, class, tag. */</span>
+            driver.Find&lt;Dropdown&gt;(ByLocator.Id("titleDropdown")).Select(title);
+            driver.Find&lt;TextInput&gt;(ByLocator.Id("name")).SetValue(name);
+            driver.Find&lt;WebControl&gt;(ByLocator.Css("a[href = '#helloWorld']")).Click();
+
+            WebControl modalWindow = driver.Find&lt;WebControl&gt;(ByLocator.Id("modalWindow"));
+            
+            <span class="sc-com">// Asserts from the box with rich matchers collection. Any matcher could be negated with Not matcher.</span>
+            Assert.That(modalWindow, UI.Control.Visible());
+
+            string expectedMessage = $"{title} {name} said: 'Hello World!'";
+
+            <span class="sc-com">// Chain asserts allow to make several checks without failing the test on first check fail.</span>
+            new ChainAssert()
+                .That(modalWindow, Is.Not(UI.Control.HasAttributeContains("class", "error")))
+                .That(modalWindow, UI.Control.HasTextMatching($"\\s*{expectedMessage}\\s*"))
+                .AssertChain();
+        }
+
+        <span class="sc-com">// This code is executed after suite execution.</span>
+        [AfterSuite]
+        public void SuiteCleanUp() =>
+            driver.Close();
+    }
+}</code></pre>
+                </div>
+
+                
+            <h2>Run test</h2>
+
+            <div class="row spacing">
+                <p>Build your tests assembly. Run next command within project directory:</p>
+                <pre><code class="source-code">dotnet build</code></pre>
+            </div>
+
+            <div class="row spacing">
+                <p>Navigate to directory where Unicorn.ConsoleRunner was unpacked and execute the following command</p>
+                <pre><code class="source-code">Unicorn.ConsoleRunner.exe --test-assembly=path_to_HelloWorldTests.dll --config=path_to_unicornConfig.json</code></pre>
+            </div>
+
+            <div class="row spacing text-center">
+                <h3><b>Congrats you have first passed unicorn test!</b></h3>
+                <img src="assets/img/quick-start-passed.png" height="400">
+            </div>
+
+            </div>
+        </section>        
+
+        <section class="site-section" style="display: none;">
+
+            <div class="container text-center spacing">
+                <h1>Allure</h1>
+            </div>   
+
+            <div class="container">
+
+
+                <h2>Allure reporting</h2>
+                <div class="row spacing">
+                    <p>Install <a class="link" href="https://docs.qameta.io/allure/">Allure</a> (it takes just few minutes)</p>
+                </div>
+
+                <div class="row spacing">
+                    <p>Install Allure reporter package</p>
+                    <pre><code class="source-code">dotnet add package Unicorn.AllureAgent</code></pre>
+                </div>
+
+                <div class="row spacing">
+                    <p>Add new class which will contain assembly initialization and cleanup code (including Allure reporting code).</p>
+                    <pre>
+                        <code class="source-code">using Unicorn.AllureAgent;
+using Unicorn.Core.Testing.Tests.Attributes;
+
+namespace HelloWorldTests
+{
+    <span class="sc-com">/* Tests runner searches for class marked with [TestsAssembly] 
+    * and uses it (if any) for run initialization and cleanup. */</span>
+    [TestsAssembly] 
+    public static class AssemblyMethods
+    {
+        private static AllureReporterInstance reporter;
+
+        <span class="sc-com">// This code is executed before all tests execution.</span>
+        [RunInitialize]
+        public static void InitRun()
+        {
+            reporter = new AllureReporterInstance(); <span class="sc-com">// Starts new Allure launch.</span>
+        }
+
+        <span class="sc-com">// This code is executed after all tests execution.</span>
+        [RunFinalize]
+        public static void FinalizeRun()
+        {
+            reporter.Dispose(); <span class="sc-com">// Unsubscribes allure reporter from unicorn events.</span>
+            reporter = null;
+        }
+    }
+}                        </code>
+                    </pre>
+                </div>
+
+                <div class="row spacing">
+                    <p>Add allure configuration file to the project with content below<br/>
+                        -- file should have name <b>allureConfig.json</b><br/>
+                        -- file should have <b>CopyAlways</b> or <b>PreserveNewest</b> attribute
+                    </p>
+                    <pre>
+                        <code class="source-code">{
+    "allure": {
+        "directory": "allure-results"
+    }
+}                       </code>
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+    </main><!-- /#main -->
+
+    <main-footer></main-footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/bootstrap-select.min.js"></script>
+    <script src="assets/js/jquery.slicknav.min.js"></script>
+    <script src="assets/js/jquery.countTo.min.js"></script>
+    <script src="assets/js/jquery.shuffle.min.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/common-elements.js"></script>
+  
+</body>
+</html>
