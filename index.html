@@ -43,7 +43,7 @@
     <![endif]-->
 
 </head>
-<body>
+<body onload="getPackagesInfo()">
 
     <header id="masthead" class="site-header site-header-white">
         <nav id="primary-navigation" class="site-navigation">
@@ -197,7 +197,7 @@
             </div>
         </section>
 
-        <section class="site-section section-map-feature text-center"> <!-- /.section-map-feature -->
+        <section class="site-section section-map-feature text-center" onfocus="getPackagesInfo()"> <!-- /.section-map-feature -->
 
             <div class="container">
                 <h2>Unicorn.TAF packages</h2>
@@ -205,15 +205,15 @@
                 <div class="row">
                     <div class="col-sm-2 col-xs-6">
                         <div class="counter-item">
-                            <p class="counter" data-to="8171" data-speed="2000">0</p>
-                            <a href="https://www.nuget.org/packages/Unicorn.Taf.Core">
+                            <p id="unicorn.taf.core" class="counter" data-to="8100" data-speed="2000">0</p>
+                            <a href="https://www.nuget.org/packages/Unicorn.Taf.Core" >
                                 <h3>Unicorn.Taf.Core</h3>
                             </a>
                         </div>
                     </div>
                     <div class="col-sm-2 col-xs-6">
                         <div class="counter-item">
-                            <p class="counter" data-to="4748" data-speed="2000">0</p>
+                            <p id="unicorn.ui.core" class="counter" data-to="4700" data-speed="2000">0</p>
                             <a href="https://www.nuget.org/packages/Unicorn.UI.Core">
                                 <h3>Unicorn.UI.Core</h3>
                             </a>
@@ -221,7 +221,7 @@
                     </div>
                     <div class="col-sm-2 col-xs-6">
                         <div class="counter-item">
-                            <p class="counter" data-to="2591" data-speed="2000">0</p>
+                            <p id="unicorn.ui.web" class="counter" data-to="2500" data-speed="2000">0</p>
                             <a href="https://www.nuget.org/packages/Unicorn.UI.Web">
                                 <h3>Unicorn.UI.Web</h3>
                             </a>
@@ -229,7 +229,7 @@
                     </div>
                     <div class="col-sm-2 col-xs-6">
                         <div class="counter-item">
-                            <p class="counter" data-to="1604" data-speed="2000">0</p>
+                            <p id="unicorn.ui.win" class="counter" data-to="1600" data-speed="2000">0</p>
                             <a href="https://www.nuget.org/packages/Unicorn.UI.Win">
                                 <h3>Unicorn.UI.Win</h3>
                             </a>
@@ -237,7 +237,7 @@
                     </div>
                     <div class="col-sm-2 col-xs-6">
                         <div class="counter-item">
-                            <p class="counter" data-to="942" data-speed="2000">0</p>
+                            <p id="unicorn.backend" class="counter" data-to="900" data-speed="2000">0</p>
                             <a href="https://www.nuget.org/packages/Unicorn.Backend">
                                 <h3>Unicorn.Backend</h3>
                             </a>
@@ -245,7 +245,7 @@
                     </div>
                     <div class="col-sm-2 col-xs-6">
                         <div class="counter-item">
-                            <p class="counter" data-to="112" data-speed="2000">0</p>
+                            <p id="unicorn.ui.mobile" class="counter" data-to="100" data-speed="2000">0</p>
                             <a href="https://www.nuget.org/packages/Unicorn.UI.Mobile">
                                 <h3>Unicorn.UI.Mobile</h3>
                             </a>
@@ -272,5 +272,29 @@
     <script src="assets/js/script.js"></script>
     <script src="assets/js/common-elements.js"></script>
   
+    <script>
+        function getPackagesInfo() {
+            getDownloads('unicorn.taf.core');
+            getDownloads('unicorn.ui.core');
+            getDownloads('unicorn.ui.web');
+            getDownloads('unicorn.ui.win');
+            getDownloads('unicorn.backend');
+            getDownloads('unicorn.ui.mobile');
+        }
+
+        function getDownloads(package) {
+            var url = 'https://api-v2v3search-0.nuget.org/query?q=packageid:' + package;
+            var xhr = new XMLHttpRequest();
+            xhr.open( "GET", url, true );
+            xhr.onload = function (e) {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    var downloads = response.data[0].totalDownloads;
+                    document.getElementById(package).setAttribute('data-to', downloads);
+                }
+            };
+            xhr.send(null);
+        }
+    </script>
 </body>
 </html>
