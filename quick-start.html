@@ -20,6 +20,7 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 
     <!-- Favicon
@@ -103,7 +104,7 @@
                 <div class="row spacing">
                     <p>> .Net 5 or greater installed (unicorn also works on .Net Framework >= 4.5.2, but steps will differ)<br/>
                     > Latest Unicorn.ConsoleRunner from 
-                        <a class="link" href="https://bitbucket.org/dobriyanchik/unicorntools/downloads/">Unicorn tools downloads</a>
+                        <a class="link" href="https://github.com/Unicorn-TAF/console-runner/releases">releases page</a>
                         (download and unpack it at any place on disk).</p>
                 </div>
 
@@ -127,9 +128,9 @@ dotnet add package Selenium.WebDriver.ChromeDriver</code></pre>
                     <p>Add project property to copy all referenced assemblies into build directory into <b>.csproj</b>. 
                         Full scope of binaries is required to run tests.
                     </p>
-                    <pre><code class="source-code">&lt;PropertyGroup&gt;
-    &lt;CopyLocalLockFileAssemblies&gt;true&lt;/CopyLocalLockFileAssemblies&gt;
-&lt;/PropertyGroup&gt;</code></pre>
+                    <pre><code class="source-code language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>PropertyGroup</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>CopyLocalLockFileAssemblies</span><span class="token punctuation">&gt;</span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>CopyLocalLockFileAssemblies</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>PropertyGroup</span><span class="token punctuation">&gt;</span></span></code></pre>
                 </div>
 
                 <div class="row spacing">
@@ -141,18 +142,18 @@ dotnet add package Selenium.WebDriver.ChromeDriver</code></pre>
                         -- file <b>should not have</b> <b><i>UTF with BOM</i></b> encoding
                     </p>
 
-                    <pre><code class="source-code">&lt;ItemGroup&gt;
-    &lt;Content Include="unicornConfig.json"&gt;
-        &lt;CopyToOutputDirectory&gt;PreserveNewest&lt;/CopyToOutputDirectory&gt;
-    &lt;/Content&gt;
-&lt;/ItemGroup&gt;</code></pre>
+                    <pre><code class="source-code language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ItemGroup</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Content</span> <span class="token attr-name">Include</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>unicornConfig.json<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>CopyToOutputDirectory</span><span class="token punctuation">&gt;</span></span>PreserveNewest<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>CopyToOutputDirectory</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Content</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ItemGroup</span><span class="token punctuation">&gt;</span></span></code></pre>
 
                     <p>File contents:</p>
-                    <pre><code class="source-code">{
-    "userDefined": {
-        "siteUrl": "https://dobriyanchik.bitbucket.io/unicorn/test-ui-apps.html"
-    }
-}</code></pre>
+                    <pre><code class="source-code language-json"><span class="token punctuation">{</span>
+    <span class="token keyword">"userDefined"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token keyword">"siteUrl"</span><span class="token punctuation">:</span> <span class="token string">"https://dobriyanchik.bitbucket.io/unicorn/test-ui-apps.html"</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
                 </div>
 
 
@@ -161,71 +162,69 @@ dotnet add package Selenium.WebDriver.ChromeDriver</code></pre>
                         Let's check positive scenario that non-error modal window shows message for specified title and name.<br/>
                         Just add one more class which will contain test suite with a test.
                     </p>
-                    <pre><code class="source-code">using Unicorn.Taf.Core;
-using Unicorn.Taf.Core.Testing;
-using Unicorn.Taf.Core.Testing.Attributes;
-using Unicorn.Taf.Core.Verification;
-using Unicorn.Taf.Core.Verification.Matchers;
-using Unicorn.UI.Core.Driver;
-using Unicorn.UI.Core.Matchers;
-using Unicorn.UI.Web;
-using Unicorn.UI.Web.Controls;
-using Unicorn.UI.Web.Controls.Typified;
-using Unicorn.UI.Web.Driver;
+                    <pre class=" language-csharp"><code class="source-code  language-csharp"><span class="token keyword">using</span> Unicorn<span class="token punctuation">.</span>Taf<span class="token punctuation">.</span>Core<span class="token punctuation">;</span>
+<span class="token keyword">using</span> Unicorn<span class="token punctuation">.</span>Taf<span class="token punctuation">.</span>Core<span class="token punctuation">.</span>Testing<span class="token punctuation">;</span>
+<span class="token keyword">using</span> Unicorn<span class="token punctuation">.</span>Taf<span class="token punctuation">.</span>Core<span class="token punctuation">.</span>Testing<span class="token punctuation">.</span>Attributes<span class="token punctuation">;</span>
+<span class="token keyword">using</span> Unicorn<span class="token punctuation">.</span>Taf<span class="token punctuation">.</span>Core<span class="token punctuation">.</span>Verification<span class="token punctuation">;</span>
+<span class="token keyword">using</span> Unicorn<span class="token punctuation">.</span>Taf<span class="token punctuation">.</span>Core<span class="token punctuation">.</span>Verification<span class="token punctuation">.</span>Matchers<span class="token punctuation">;</span>
+<span class="token keyword">using</span> Unicorn<span class="token punctuation">.</span>UI<span class="token punctuation">.</span>Core<span class="token punctuation">.</span>Driver<span class="token punctuation">;</span>
+<span class="token keyword">using</span> Unicorn<span class="token punctuation">.</span>UI<span class="token punctuation">.</span>Core<span class="token punctuation">.</span>Matchers<span class="token punctuation">;</span>
+<span class="token keyword">using</span> Unicorn<span class="token punctuation">.</span>UI<span class="token punctuation">.</span>Web<span class="token punctuation">;</span>
+<span class="token keyword">using</span> Unicorn<span class="token punctuation">.</span>UI<span class="token punctuation">.</span>Web<span class="token punctuation">.</span>Controls<span class="token punctuation">;</span>
+<span class="token keyword">using</span> Unicorn<span class="token punctuation">.</span>UI<span class="token punctuation">.</span>Web<span class="token punctuation">.</span>Controls<span class="token punctuation">.</span>Typified<span class="token punctuation">;</span>
+<span class="token keyword">using</span> Unicorn<span class="token punctuation">.</span>UI<span class="token punctuation">.</span>Web<span class="token punctuation">.</span>Driver<span class="token punctuation">;</span>
 
-namespace HelloWorldTests
-{
-    <span class="sc-com">// Test suite should be marked with [Suite] attribute and should inherit TestSuite.</span>
-    [Suite("Sample tests")] 
-    public class SampleTests : TestSuite
-    {
-        DesktopWebDriver driver;
+<span class="token keyword">namespace</span> HelloWorldTests
+<span class="token punctuation">{</span>
+    <span class="token comment">// Test suite should be marked with [Suite] attribute and should inherit TestSuite.</span>
+    <span class="token punctuation">[</span><span class="token function">Suite</span><span class="token punctuation">(</span><span class="token string">"Sample tests"</span><span class="token punctuation">)</span><span class="token punctuation">]</span> 
+    <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SampleTests</span> <span class="token punctuation">:</span> TestSuite
+    <span class="token punctuation">{</span>
+        DesktopWebDriver driver<span class="token punctuation">;</span>
 
-        <span class="sc-com">// This code is executed before suite execution.</span>
-        [BeforeSuite]
-        public void SuiteInit()
-        {
-            driver = new DesktopWebDriver(BrowserType.Chrome);
-            driver.Get(Config.GetUserDefinedSetting("siteUrl")); <span class="sc-com">// Get test site url from unicorn config.</span>
-        }
+        <span class="token comment">// This code is executed before suite execution.</span>
+        <span class="token punctuation">[</span>BeforeSuite<span class="token punctuation">]</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">SuiteInit</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            driver <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DesktopWebDriver</span><span class="token punctuation">(</span>BrowserType<span class="token punctuation">.</span>Chrome<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            driver<span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span>Config<span class="token punctuation">.</span><span class="token function">GetUserDefinedSetting</span><span class="token punctuation">(</span><span class="token string">"siteUrl"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Get test site url from unicorn config.</span>
+        <span class="token punctuation">}</span>
 
-        <span class="sc-com">// Test should be marked with [Test] attribute.</span>
-        [Test]
-        public void SimpleTest()
-        {
-            string title = "Mr";
-            string name = "NoName";
+        <span class="token comment">// Test should be marked with [Test] attribute.</span>
+        <span class="token punctuation">[</span>Test<span class="token punctuation">]</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">SimpleTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token keyword">string</span> title <span class="token operator">=</span> <span class="token string">"Mr"</span><span class="token punctuation">;</span>
+            <span class="token keyword">string</span> name <span class="token operator">=</span> <span class="token string">"NoName"</span><span class="token punctuation">;</span>
 
-            <span class="sc-com">/* It's possible to search for not only generic WebControl, but also any custom or typified control.
+            <span class="token comment">/* It's possible to search for not only generic WebControl, but also any custom or typified control.
             * Main typified controls are from the box. All controls have built-in detailed logging.
             * Available locators are xpath, css, id, name, class, tag. */</span>
-            driver.Find&lt;Dropdown&gt;(ByLocator.Id("titleDropdown")).Select(title);
-            driver.Find&lt;TextInput&gt;(ByLocator.Id("name")).SetValue(name);
-            driver.Find&lt;WebControl&gt;(ByLocator.Css("a[href = '#helloWorld']")).Click();
+            driver<span class="token punctuation">.</span><span class="token generic-method function">Find<span class="token punctuation">&lt;</span>Dropdown<span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>ByLocator<span class="token punctuation">.</span><span class="token function">Id</span><span class="token punctuation">(</span><span class="token string">"titleDropdown"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Select</span><span class="token punctuation">(</span>title<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            driver<span class="token punctuation">.</span><span class="token generic-method function">Find<span class="token punctuation">&lt;</span>TextInput<span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>ByLocator<span class="token punctuation">.</span><span class="token function">Id</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">SetValue</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            driver<span class="token punctuation">.</span><span class="token generic-method function">Find<span class="token punctuation">&lt;</span>WebControl<span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>ByLocator<span class="token punctuation">.</span><span class="token function">Css</span><span class="token punctuation">(</span><span class="token string">"a[href = '#helloWorld']"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Click</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            WebControl modalWindow = driver.Find&lt;WebControl&gt;(ByLocator.Id("modalWindow"));
+            WebControl modalWindow <span class="token operator">=</span> driver<span class="token punctuation">.</span><span class="token generic-method function">Find<span class="token punctuation">&lt;</span>WebControl<span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>ByLocator<span class="token punctuation">.</span><span class="token function">Id</span><span class="token punctuation">(</span><span class="token string">"modalWindow"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
             
-            <span class="sc-com">// Asserts from the box with rich matchers collection. Any matcher could be negated with Not matcher.</span>
-            Assert.That(modalWindow, UI.Control.Visible());
+            <span class="token comment">// Asserts from the box with rich matchers collection. Any matcher could be negated with Not matcher.</span>
+            Assert<span class="token punctuation">.</span><span class="token function">That</span><span class="token punctuation">(</span>modalWindow<span class="token punctuation">,</span> UI<span class="token punctuation">.</span>Control<span class="token punctuation">.</span><span class="token function">Visible</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            string expectedMessage = $"{title} {name} said: 'Hello World!'";
+            <span class="token keyword">string</span> expectedMessage <span class="token operator">=</span> $<span class="token string">"{title} {name} said: 'Hello World!'"</span><span class="token punctuation">;</span>
 
-            <span class="sc-com">// Chain asserts allow to make several checks without failing the test on first check fail.</span>
-            new ChainAssert()
-                .That(modalWindow, Is.Not(UI.Control.HasAttributeContains("class", "error")))
-                .That(modalWindow, UI.Control.HasTextMatching($"\\s*{expectedMessage}\\s*"))
-                .AssertChain();
-        }
+            <span class="token comment">// Chain asserts allow to make several checks without failing the test on first check fail.</span>
+            <span class="token keyword">new</span> <span class="token class-name">ChainAssert</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">That</span><span class="token punctuation">(</span>modalWindow<span class="token punctuation">,</span> Is<span class="token punctuation">.</span><span class="token function">Not</span><span class="token punctuation">(</span>UI<span class="token punctuation">.</span>Control<span class="token punctuation">.</span><span class="token function">HasAttributeContains</span><span class="token punctuation">(</span><span class="token string">"class"</span><span class="token punctuation">,</span> <span class="token string">"error"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">That</span><span class="token punctuation">(</span>modalWindow<span class="token punctuation">,</span> UI<span class="token punctuation">.</span>Control<span class="token punctuation">.</span><span class="token function">HasTextMatching</span><span class="token punctuation">(</span>$<span class="token string">"\\s*{expectedMessage}\\s*"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">AssertChain</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="sc-com">// This code is executed after suite execution.</span>
-        [AfterSuite]
-        public void SuiteCleanUp() =>
-            driver.Close();
-    }
-}</code></pre>
+        <span class="token comment">// This code is executed after suite execution.</span>
+        <span class="token punctuation">[</span>AfterSuite<span class="token punctuation">]</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">SuiteCleanUp</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span>
+            driver<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
                 </div>
-
-                
             <h2>Run test</h2>
 
             <div class="row spacing">

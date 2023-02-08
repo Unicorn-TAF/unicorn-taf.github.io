@@ -20,6 +20,7 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 
     <!-- Favicon
@@ -113,36 +114,34 @@
                 </div>
                 <div class="row">
                     <br/><br/>
-                    <pre>
-                        <code class="source-code">using Unicorn.Core.Testing.Tests.Attributes;
-using Unicorn.ReportPortalAgent;
+                    <pre><code class="source-code language-csharp"><span class="token keyword">using</span> Unicorn<span class="token punctuation">.</span>Core<span class="token punctuation">.</span>Testing<span class="token punctuation">.</span>Tests<span class="token punctuation">.</span>Attributes<span class="token punctuation">;</span>
+<span class="token keyword">using</span> Unicorn<span class="token punctuation">.</span>ReportPortalAgent<span class="token punctuation">;</span>
 
-namespace Tests
-{
-    [TestsAssembly]
-    public static class TestsAssembly
-    {
-        private static ReportPortalReporterInstance rpInstance;
+<span class="token keyword">namespace</span> Tests
+<span class="token punctuation">{</span>
+    <span class="token punctuation">[</span>TestsAssembly<span class="token punctuation">]</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">TestsAssembly</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">private</span> <span class="token keyword">static</span> ReportPortalReporterInstance rpInstance<span class="token punctuation">;</span>
 
-        [RunInitialize]
-        public static void InitRun()
-        {
-            rpInstance = new ReportPortalReporterInstance(); <span class="sc-com">// Start new launch in Report Portal.</span>
+        <span class="token punctuation">[</span>RunInitialize<span class="token punctuation">]</span>
+        <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">InitRun</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            rpInstance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ReportPortalReporterInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Start new launch in Report Portal.</span>
             
-            <span class="sc-com">/* in case you want to report into already started existing launch use
-             * rpInstance = new ReportPortalReporterInstance(existing_launch_id); */
-            </span>
-        }
+            <span class="token comment">/* in case you want to report into already started existing launch use
+                * rpInstance = new ReportPortalReporterInstance(existing_launch_id); */</span>
+            
+        <span class="token punctuation">}</span>
 
-        [RunFinalize]
-        public static void FinalizeRun()
-        {
-            reporter.Dispose(); <span class="sc-com">// Finish launch in Report portal if it was not externally started.</span>
-            reporter = null;
-        }
-    }
-}                        </code>
-                    </pre>
+        <span class="token punctuation">[</span>RunFinalize<span class="token punctuation">]</span>
+        <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">FinalizeRun</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            reporter<span class="token punctuation">.</span><span class="token function">Dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Finish launch in Report portal if it was not externally started.</span>
+            reporter <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
                 </div>
 
                 <div class="row">
@@ -154,24 +153,23 @@ namespace Tests
 
                 <div class="row">
                     <br/><br/>
-                    <pre>
-                        <code class="source-code">{
-    "enabled": true,
-    "server": {
-        "url": "https://report-portal-uri/api/v1/",
-        "project": "Some project",
-        "authentication": {
-        "uuid": "your_uuid"
-        },
-    },
-    "launch": {
-        "name": "Unicorn tests run",
-        "description": "Unit tests of Unicorn Framework",
-        "debugMode": false,
-        "tags": [ "Windows 10", "UnicornFramework" ]
-    }
-}                        </code>
-                    </pre>
+                    <pre class=" language-json"><code class="source-code language-json"><span class="token punctuation">{</span>
+    <span class="token keyword">"enabled"</span><span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token keyword">"server"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token keyword">"url"</span><span class="token punctuation">:</span> <span class="token string">"https://report-portal-uri/api/v1/"</span><span class="token punctuation">,</span>
+        <span class="token keyword">"project"</span><span class="token punctuation">:</span> <span class="token string">"Some project"</span><span class="token punctuation">,</span>
+        <span class="token keyword">"authentication"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token keyword">"uuid"</span><span class="token punctuation">:</span> <span class="token string">"your_uuid"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token keyword">"launch"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token keyword">"name"</span><span class="token punctuation">:</span> <span class="token string">"Unicorn tests run"</span><span class="token punctuation">,</span>
+        <span class="token keyword">"description"</span><span class="token punctuation">:</span> <span class="token string">"Unit tests of Unicorn Framework"</span><span class="token punctuation">,</span>
+        <span class="token keyword">"debugMode"</span><span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token keyword">"tags"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token string">"Windows 10"</span><span class="token punctuation">,</span> <span class="token string">"UnicornFramework"</span> <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span> 
+                    </code></pre>
                 </div>
             </div>
         </section>
@@ -198,32 +196,30 @@ namespace Tests
                 </div>
                 <div class="row">
                     <br/><br/>
-                    <pre>
-                        <code class="source-code">using Unicorn.AllureAgent;
-using Unicorn.Core.Testing.Tests.Attributes;
+                    <pre class=" language-csharp"><code class="source-code  language-csharp"><span class="token keyword">using</span> Unicorn<span class="token punctuation">.</span>AllureAgent<span class="token punctuation">;</span>
+<span class="token keyword">using</span> Unicorn<span class="token punctuation">.</span>Core<span class="token punctuation">.</span>Testing<span class="token punctuation">.</span>Tests<span class="token punctuation">.</span>Attributes<span class="token punctuation">;</span>
 
-namespace Tests
-{
-    [TestsAssembly]
-    public static class TestsAssembly
-    {
-        private static AllureReporterInstance reporter;
+<span class="token keyword">namespace</span> Tests
+<span class="token punctuation">{</span>
+    <span class="token punctuation">[</span>TestsAssembly<span class="token punctuation">]</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">TestsAssembly</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">private</span> <span class="token keyword">static</span> AllureReporterInstance reporter<span class="token punctuation">;</span>
 
-        [RunInitialize]
-        public static void InitRun()
-        {
-            reporter = new AllureReporterInstance(); <span class="sc-com">// starts new launch in Allure.</span>
-        }
+        <span class="token punctuation">[</span>RunInitialize<span class="token punctuation">]</span>
+        <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">InitRun</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            reporter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AllureReporterInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// starts new launch in Allure.</span>
+        <span class="token punctuation">}</span>
 
-        [RunFinalize]
-        public static void FinalizeRun()
-        {
-            reporter.Dispose(); <span class="sc-com">// Unsubscribe allure reporter from unicorn events.</span>
-            reporter = null;
-        }
-    }
-}                        </code>
-                    </pre>
+        <span class="token punctuation">[</span>RunFinalize<span class="token punctuation">]</span>
+        <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">FinalizeRun</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            reporter<span class="token punctuation">.</span><span class="token function">Dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Unsubscribe allure reporter from unicorn events.</span>
+            reporter <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
                 </div>
 
                 <div class="row">
@@ -235,13 +231,11 @@ namespace Tests
 
                 <div class="row">
                     <br/><br/>
-                    <pre>
-                        <code class="source-code">{
-    "allure": {
-        "directory": "path_to_directory_with_report"
-    }
-}                        </code>
-                    </pre>
+                    <pre class=" language-json"><code class="source-code  language-json"><span class="token punctuation">{</span>
+    <span class="token keyword">"allure"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token keyword">"directory"</span><span class="token punctuation">:</span> <span class="token string">"path_to_directory_with_report"</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
                 </div>
             </div>
         </section>

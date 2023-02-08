@@ -1183,15 +1183,6 @@ a.facebook-bg:hover{
   background-color: #3b5998;
 }
 
-a.pinterest {
-  color: #dd4b39;
-  border-color: #dd4b39;
-} 
-
-a.pinterest:hover{
-  background-color: #dd4b39;
-} 
-
 a.linkedin-bg {
   color: #007bb5;
   border-color: #007bb5;
@@ -1337,23 +1328,123 @@ a.linkedin-bg:hover {
   
 .source-code {
     display: block;
-    font-family: 'IBM Plex Mono', monospace;
+    /* font-family: 'IBM Plex Mono', monospace; */
     width: auto;
-    background-color: black;
-    color: rgb(211, 211, 211);
-    font-size: 15px;
-    border: 1px solid grey;
+    /* background-color: black; */
+    /* color: rgb(211, 211, 211); */
+    /* font-size: 15px; */
+    /* border: 1px solid grey; */
     padding: 5px 10px 5px 10px;
     white-space: pre;
     overflow: auto;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 15px;
 }
 
-.sc-str {
-    color: chocolate;
+.source-code *,
+.token.pre.gfm * {
+    font-weight: inherit !important;
 }
 
-.sc-com {
-    color: #09af09;
+.source-code .token.cdata,
+.source-code .token.comment,
+.source-code .token.doctype,
+.source-code .token.prolog,
+.token.pre.gfm .token.cdata,
+.token.pre.gfm .token.comment,
+.token.pre.gfm .token.doctype,
+.token.pre.gfm .token.prolog {
+    color: #708090
+}
+
+.source-code .token.punctuation,
+.token.pre.gfm .token.punctuation {
+    color: #999
+}
+
+.source-code .namespace,
+.token.pre.gfm .namespace {
+    opacity: .7
+}
+
+.source-code .token.boolean,
+.source-code .token.constant,
+.source-code .token.deleted,
+.source-code .token.number,
+.source-code .token.property,
+.source-code .token.symbol,
+.source-code .token.tag,
+.token.pre.gfm .token.boolean,
+.token.pre.gfm .token.constant,
+.token.pre.gfm .token.deleted,
+.token.pre.gfm .token.number,
+.token.pre.gfm .token.property,
+.token.pre.gfm .token.symbol,
+.token.pre.gfm .token.tag {
+    color: #905
+}
+
+.source-code .token.attr-name,
+.source-code .token.builtin,
+.source-code .token.char,
+.source-code .token.inserted,
+.source-code .token.selector,
+.source-code .token.string,
+.token.pre.gfm .token.attr-name,
+.token.pre.gfm .token.builtin,
+.token.pre.gfm .token.char,
+.token.pre.gfm .token.inserted,
+.token.pre.gfm .token.selector,
+.token.pre.gfm .token.string {
+    color: #690
+}
+
+.source-code .language-css .token.string,
+.source-code .style .token.string,
+.source-code .token.entity,
+.source-code .token.operator,
+.source-code .token.url,
+.token.pre.gfm .language-css .token.string,
+.token.pre.gfm .style .token.string,
+.token.pre.gfm .token.entity,
+.token.pre.gfm .token.operator,
+.token.pre.gfm .token.url {
+    color: #a67f59
+}
+
+.source-code .token.atrule,
+.source-code .token.attr-value,
+.source-code .token.keyword,
+.token.pre.gfm .token.atrule,
+.token.pre.gfm .token.attr-value,
+.token.pre.gfm .token.keyword {
+    color: #07a
+}
+
+.source-code .token.function,
+.token.pre.gfm .token.function {
+    color: #dd4a68
+}
+
+.source-code .token.important,
+.source-code .token.regex,
+.source-code .token.variable,
+.token.pre.gfm .token.important,
+.token.pre.gfm .token.regex,
+.token.pre.gfm .token.variable {
+    color: #e90
+}
+
+.source-code .token.bold,
+.source-code .token.important,
+.token.pre.gfm .token.bold,
+.token.pre.gfm .token.important {
+    font-weight: 500
+}
+
+.source-code .token.italic,
+.token.pre.gfm .token.italic {
+    font-style: italic
 }
 
 /* Test elements */

@@ -46,28 +46,25 @@ class Footer extends HTMLElement {
   connectedCallback() {
     this.innerHTML = 
       `
-<footer id="colophon" class="site-footer"> <!-- /#footer -->
-    <div class="container text-right">
-                <h3>Keep in touch</h3>
-                <ul class="list-unstyled contact-links">
-                    <li><i class="fa fa-envelope" aria-hidden="true"></i><a href="mailto:dobriy88@yandex.ru">dobriy88@yandex.ru</a></li>
-                    <li><i class="fa fa-skype" aria-hidden="true"></i><a href="https://join.skype.com/invite/kzYokJHlHmZN">dobriyanchik</a></li>
-                    <li><i class="fa fa-map-marker" aria-hidden="true"></i><a href="https://goo.gl/maps/D8hzfjNK5oKhNcXBA">Saint Petersburg, Russia</a></li>
-                </ul>
-    </div>
-    <div class="copyright"> <!-- /.copyright -->
+<footer id="colophon" class="site-footer">
+    <div class="copyright">
         <div class="container">
+            <div class="row text-center">
+            <h4>Keep in touch</h4>
+            </div>
             <div class="row">
-                <div class="col-xs-8">
-                    <div class="social-links"> <!-- /.social-links -->
-                        <!-- <a class="facebook-bg" href="#"><i class="fa fa-facebook"></i></a> -->
-                        <a class="linkedin-bg" href="https://www.linkedin.com/in/vitalii-dobriian"><i class="fa fa-linkedin"></i></a>
+                <div class="col-xs-6">
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/dobriyanchik"><i class="fa fa-facebook-official fa-fw w3-xlarge w3-hover-opacity"></i></a>
+                        <a href="https://www.linkedin.com/in/vitalii-dobriian"><i class="fa fa-linkedin fa-fw w3-xlarge w3-hover-opacity"></i></a>
+                        <a href="mailto:dobriy88@yandex.ru"><i class="fa fa-envelope fa-fw w3-xlarge w3-hover-opacity"></i></a>
+                        <a href="https://join.skype.com/invite/kzYokJHlHmZN"><i class="fa fa-skype fa-fw w3-xlarge w3-hover-opacity"></i></a>
                     </div>
                 </div>
-                <div class="col-xs-4">
+                <div class="col-xs-6">
                     <div class="text-right">
-                        <p>&copy; Vitalii Dobriian</p>
-                        <p>All Rights Reserved</p>
+                        <span>&copy; Vitalii Dobriian</span><br/>
+                        <span>All Rights Reserved</span>
                     </div>
                 </div>
             </div>
