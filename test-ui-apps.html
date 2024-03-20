@@ -54,8 +54,13 @@
     </div><!-- /.hero -->
 
     <main id="main" class="site-main">
+        <div class="row" style="padding-top: 10px; padding-left: 10px; margin-bottom: -100px; margin-right: 10px;">
+            <div class="col-sm-12">
+                <a id="switchAppLink" class="btn mb-10" onclick="onAppSwitch()">SWITCH APP</a>
+            </div>
+        </div>
 
-        <section class="site-section" id="helloWorld">
+        <section class="site-section" id="helloWorld" style="display: block;">
             <div class="container">
 
                 <h1 class="text-center heading-separator">Sample "Hello World" app</h1>
@@ -85,9 +90,7 @@
             </div>
         </section>
 
-        <hr/>
-
-        <section class="site-section" id="signin">
+        <section class="site-section" id="signin" style="display: none;">
             <h1 class="text-center heading-separator">Sample sign in app</h1>
 
             <div class="container" id="signinSection">
@@ -119,7 +122,7 @@
             <div class="container" style="display: none;" id="contentSection">
 
                 <div class="row text-center">
-                    <h1>Welcome!</h1>
+                    <h2>Welcome!</h2>
                     <p>Welcome to test app. Here you can do some simple things with UI elements.</p>
                 </div>
 
@@ -127,6 +130,7 @@
                     <h2 class="text-center">Checkboxes, Radiobuttons, Select</h2>
                     <div class="row">
                         <div class="col-sm-4 mt-20">
+                            <label>Tools:</label><br/>
                             <div class="checkbox">
                                 <input type="checkbox" id="checkbox1" checked="true">
                                 <label for="checkbox1">Unicorn.ConsoleRunner</label>
@@ -137,6 +141,7 @@
                             </div>
                         </div>
                         <div class="col-sm-4 mt-20">
+                            <label>Supported reports:</label><br/>
                             <div class="radio-btn">
                                 <input type="radio" name="radio-btn" id="radio-btn1">
                                 <label for="radio-btn1">Report Portal Reports</label>
@@ -148,6 +153,7 @@
                         </div>
                         
                         <div class="col-sm-4 mt-20">
+                            <label>Supported runtimes:</label><br/>
                             <select class="selectpicker" id="titleDropdown">
                                 <option>.NET</option>
                                 <option>.NET Framework</option>
@@ -241,15 +247,11 @@
                     <div class="row">
                         <div class="col-md-12 text-center">
                             <ul class="pagination">
-                                <li><a href="#paginationDiv">&lt;&lt;</a></li>
-                                <li><a href="#paginationDiv">&lt;</a></li>
-                                <li class="more"><a href="#">...</a></li>
-                                <li><a href="#paginationDiv">31</a></li>
-                                <li class="active"><a href="#paginationDiv">32</a></li>
-                                <li><a href="#paginationDiv">33</a></li>
-                                <li class="more"><a href="#paginationDiv">...</a></li>
-                                <li><a href="#paginationDiv">&gt;</a></li>
-                                <li><a href="#paginationDiv">&gt;&gt;</a></li>
+                                <li id="pgStart" onclick="onPagination(this);"><a>&lt;&lt;</a></li>
+                                <li class="pgnum active" onclick="onPagination(this);"><a>1</a></li>
+                                <li class="pgnum" onclick="onPagination(this);"><a>2</a></li>
+                                <li class="pgnum" onclick="onPagination(this);"><a>3</a></li>
+                                <li id="pgEnd" onclick="onPagination(this);"><a>&gt;&gt;</a></li>
                             </ul><!-- /.pagination -->
                         </div>
                     </div>
@@ -264,7 +266,7 @@
             <span class="w3-button w3-large w3-black w3-display-topright" title="Close Modal Image" style="position:relative;top: 0%;left: 95%;">
                 <a onclick="onModalClose()"><i class="fa fa-remove"/></i></a>
             </span>
-            <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64" style="position:relative;top: 10%;left: 25%;">
+            <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64" style="position:relative;top: 10%;left: 5%;">
               <div id="caption" class="w3-opacity w3-large w3-center"/>
             </div>
           </div>
@@ -283,6 +285,20 @@
     <script src="assets/js/script.js"></script>
     
     <script>
+
+    function onAppSwitch() {
+        var helloWorld = document.getElementById("helloWorld");
+        var signIn = document.getElementById("signin");
+
+        if (helloWorld.style.display == "block") {
+            helloWorld.style.display = "none";
+            signIn.style.display = "block";    
+        } else {
+            helloWorld.style.display = "block";
+            signIn.style.display = "none";
+        }
+    }
+
 
     function onModalClose() {
         var window = document.getElementById("modalWindow");
@@ -322,6 +338,22 @@
         {
             var title = document.getElementById("titleDropdown").value;
             captionText.textContent = title + " " + name + " said: 'Hello World!'";
+        }
+    }
+
+    function onPagination(element) {
+
+        var elements = $('#paginationDiv .active');
+        
+        if (elements.length > 0) {
+            elements[0].className = "pgnum";
+        }
+
+        if (element.className.includes("pgnum")) {
+            element.className = "active";
+        } else {
+            var index = element.id == "pgStart" ? 0 : 2;
+            $('#paginationDiv .pgnum')[index].className = "active";
         }
     }
 
