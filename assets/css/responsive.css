@@ -27,8 +27,8 @@
 		text-transform: lowercase;
 	}
 
-	.main-logo {
-		position: fixed;
+	.github-logo {
+		margin-top: -10px !important;
 	}
 }
 
