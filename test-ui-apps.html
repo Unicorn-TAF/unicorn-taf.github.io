@@ -353,7 +353,18 @@
     function onShowConfigClick() {
         var name = document.getElementById("name").value.trim();        
 
-        var selectedId = $('[name = radio-btn][checked = true]')[0].id;
+        var radioButtons = $('[name = radio-btn]');
+        var selectedId;
+
+        for (let index = 0; index < radioButtons.length; index++) {
+            const element = radioButtons[index];
+            
+            if (element.checked) {
+                selectedId = element.id;
+                break;
+            }
+        }
+
         var report = $("label[for = " + selectedId + "]")[0].textContent;
         var configuration = document.getElementById("runtimesDropdown").value;
         
