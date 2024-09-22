@@ -110,10 +110,7 @@
 
                 <h2>Prerequisites</h2>
                 <div class="row spacing">
-                    <p>> .Net 5 or greater installed (unicorn also works on .Net Framework >= 4.5.2, but steps will differ)<br/>
-                    > Latest Unicorn.ConsoleRunner from 
-                        <a class="link" href="https://github.com/Unicorn-TAF/console-runner/releases">releases page</a>
-                        (download and unpack it at any place on disk).</p>
+                    <p>> .Net 5 or greater installed <i>(unicorn also works on .Net Framework >= 4.5.2, but steps will differ)</i>
                 </div>
 
                 <h2>Create tests assembly</h2>
@@ -125,29 +122,24 @@ cd HelloWorldTests</code></pre>
                 </div>
 
                 <div class="row spacing">
-                    <p>Install Unicorn packages for unit tests and Web UI + ChromeDriver package.</p>
-                    <pre><code class="source-code">dotnet add package Unicorn.Taf.Core
+                    <p>Add .Net Test SDK, Unicorn packages for unit tests and Web UI + ChromeDriver package.</p>
+                    <pre><code class="source-code">dotnet add package Microsoft.NET.Test.Sdk
+dotnet add package Unicorn.Taf.Core
 dotnet add package Unicorn.UI.Core
 dotnet add package Unicorn.UI.Web
+dotnet add package Unicorn.TestAdapter
 dotnet add package Selenium.WebDriver.ChromeDriver</code></pre>
                 </div>
 
-                <div class="row spacing">
-                    <p>Add project property to copy all referenced assemblies into build directory into <b>.csproj</b>. 
-                        Full scope of binaries is required to run tests.
-                    </p>
-                    <pre><code class="source-code language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>PropertyGroup</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>CopyLocalLockFileAssemblies</span><span class="token punctuation">&gt;</span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>CopyLocalLockFileAssemblies</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>PropertyGroup</span><span class="token punctuation">&gt;</span></span></code></pre>
-                </div>
+                <h2>Add config</h2>
 
                 <div class="row spacing">
-                    <p>Let's add config file for unicorn framework (let's name it unicornConfig.json). The file can contain configuration of unicorn framework. 
-                        In case of specific properties absence default values are used. 
-                        See <a class="link" href="console-runner.html">Console runner page</a> for config details.<br/>
-                        In this demo the file will just contain some user defined properties (let's parameterize url to test website).<br/><br/>
-                        -- file <b>should have</b> <b><i>CopyAlways</i></b> or <b><i>PreserveNewest</i></b> attribute<br/>
-                        -- file <b>should not have</b> <b><i>UTF with BOM</i></b> encoding
+                    <p>Let's add config file for unicorn framework with name <i>unicornConfig.json</i>. The file contains configuration of unicorn framework, 
+                        if specific framework property is absent default value is used (See <a class="link" href="console-runner.html">Console runner page</a> for details.)<br/>
+                        In this demo the file is used to define custom user property (test website url as exemple).<br/><br/>
+                        -- file name could be any<br/>
+                        -- file <b>should not have</b> <b><i>UTF with BOM</i></b> encoding<br/>
+                        -- file <b>should have</b> <b><i>CopyAlways</i></b> or <b><i>PreserveNewest</i></b> attribute in .csproj file 
                     </p>
 
                     <pre><code class="source-code language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ItemGroup</span><span class="token punctuation">&gt;</span></span>
@@ -159,14 +151,15 @@ dotnet add package Selenium.WebDriver.ChromeDriver</code></pre>
                     <p>File contents:</p>
                     <pre><code class="source-code language-json"><span class="token punctuation">{</span>
     <span class="token keyword">"userDefined"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        <span class="token keyword">"siteUrl"</span><span class="token punctuation">:</span> <span class="token string">"https://dobriyanchik.bitbucket.io/unicorn/test-ui-apps.html"</span>
+        <span class="token keyword">"siteUrl"</span><span class="token punctuation">:</span> <span class="token string">"https://unicorn-taf.github.io/test-ui-apps.html"</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
                 </div>
 
+                <h2>Write test</h2>
 
                 <div class="row spacing">
-                    <p>Application under test is 'Sample "Hello World" app' on <a class="link" href="test-ui-apps.html">Test UI apps page</a>.
+                    <p>Application under test is "Hello World" app on <a class="link" href="test-ui-apps.html">Test UI apps page</a>.
                         Let's check positive scenario that non-error modal window shows message for specified title and name.<br/>
                         Just add one more class which will contain test suite with a test.
                     </p>
@@ -194,6 +187,7 @@ dotnet add package Selenium.WebDriver.ChromeDriver</code></pre>
         <span class="token punctuation">[</span>BeforeSuite<span class="token punctuation">]</span>
         <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">SuiteInit</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
         <span class="token punctuation">{</span>
+            <span class="token class-name">Config</span><span class="token punctuation">.</span>FillFromFile(<span class="token string">"unicornConfig.json"</span>)<span class="token punctuation">;</span> <span class="token comment">// Read unicorn config from specified file.</span>
             driver <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DesktopWebDriver</span><span class="token punctuation">(</span>BrowserType<span class="token punctuation">.</span>Chrome<span class="token punctuation">)</span><span class="token punctuation">;</span>
             driver<span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span>Config<span class="token punctuation">.</span><span class="token function">GetUserDefinedSetting</span><span class="token punctuation">(</span><span class="token string">"siteUrl"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Get test site url from unicorn config.</span>
         <span class="token punctuation">}</span>
@@ -236,91 +230,21 @@ dotnet add package Selenium.WebDriver.ChromeDriver</code></pre>
             <h2>Run test</h2>
 
             <div class="row spacing">
-                <p>Build your tests assembly. Run next command within project directory:</p>
-                <pre><code class="source-code">dotnet build</code></pre>
-            </div>
+                <p>Run next command within project directory:</p>
+                <pre><code class="source-code">dotnet test</code></pre>
 
-            <div class="row spacing">
-                <p>Navigate to directory where Unicorn.ConsoleRunner was unpacked and execute the following command</p>
-                <pre><code class="source-code">Unicorn.ConsoleRunner.exe --test-assembly=path_to_HelloWorldTests.dll --config=path_to_unicornConfig.json</code></pre>
+                <p>To monitor logs in console add <b>--logger "console;verbosity=detailed"</b> parameter </p>
+                <pre><code class="source-code">dotnet test --logger "console;verbosity=detailed"</code></pre>
+                
             </div>
 
             <div class="row spacing text-center">
-                <h3><b>Congrats you have first passed unicorn test!</b></h3>
-                <img src="assets/img/quick-start-passed.png" height="400">
+                <h3><b>Congrats on your first passed unicorn test!</b></h3>
+                <img src="assets/img/quick-start-passed.png" height="700">
             </div>
 
             </div>
         </section>        
-
-        <section class="site-section" style="display: none;">
-
-            <div class="container text-center spacing">
-                <h1>Allure</h1>
-            </div>   
-
-            <div class="container">
-
-
-                <h2>Allure reporting</h2>
-                <div class="row spacing">
-                    <p>Install <a class="link" href="https://docs.qameta.io/allure/">Allure</a> (it takes just few minutes)</p>
-                </div>
-
-                <div class="row spacing">
-                    <p>Install Allure reporter package</p>
-                    <pre><code class="source-code">dotnet add package Unicorn.AllureAgent</code></pre>
-                </div>
-
-                <div class="row spacing">
-                    <p>Add new class which will contain assembly initialization and cleanup code (including Allure reporting code).</p>
-                    <pre>
-                        <code class="source-code">using Unicorn.AllureAgent;
-using Unicorn.Core.Testing.Tests.Attributes;
-
-namespace HelloWorldTests
-{
-    <span class="sc-com">/* Tests runner searches for class marked with [TestsAssembly] 
-    * and uses it (if any) for run initialization and cleanup. */</span>
-    [TestsAssembly] 
-    public static class AssemblyMethods
-    {
-        private static AllureReporterInstance reporter;
-
-        <span class="sc-com">// This code is executed before all tests execution.</span>
-        [RunInitialize]
-        public static void InitRun()
-        {
-            reporter = new AllureReporterInstance(); <span class="sc-com">// Starts new Allure launch.</span>
-        }
-
-        <span class="sc-com">// This code is executed after all tests execution.</span>
-        [RunFinalize]
-        public static void FinalizeRun()
-        {
-            reporter.Dispose(); <span class="sc-com">// Unsubscribes allure reporter from unicorn events.</span>
-            reporter = null;
-        }
-    }
-}                        </code>
-                    </pre>
-                </div>
-
-                <div class="row spacing">
-                    <p>Add allure configuration file to the project with content below<br/>
-                        -- file should have name <b>allureConfig.json</b><br/>
-                        -- file should have <b>CopyAlways</b> or <b>PreserveNewest</b> attribute
-                    </p>
-                    <pre>
-                        <code class="source-code">{
-    "allure": {
-        "directory": "allure-results"
-    }
-}                       </code>
-                    </pre>
-                </div>
-            </div>
-        </section>
 
     </main><!-- /#main -->
 
