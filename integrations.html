@@ -73,6 +73,7 @@
 
                         </li>
                         <li><a href="integrations.html">Integrations</a></li>
+                        <li><a href="docs/" target="_blank">Documentation</a></li>
                         <li><a href="examples.html">Examples</a></li>
                         <li>
                             <a href="https://github.com/Unicorn-TAF">
@@ -112,71 +113,17 @@
                         
                         <p>
                             Just deploy EPAM ReportPortal instance, add tests project dependency to 
-                            <a href="https://www.nuget.org/packages/Unicorn.ReportPortalAgent" class="link">Unicorn.ReportPortalAgent</a> 
+                            <a href="https://www.nuget.org/packages/Unicorn.Reporting.ReportPortal" class="link">Unicorn.Reporting.ReportPortal</a> 
                             package and initialize reporter during tests assembly initialization.
+                        </p>
+
+                        <p>
+                            See <a href="https://unicorn-taf.github.io/docs/reporting/report-portal-integration/" class="link">documentation</a> to learn how to integrate your tests with ReportPortal.
                         </p>
                     </div>
                     <div class="col-sm-6 hidden-xs text-center">
                         <img src="assets/img/report-portal.png" height="360" alt="">
                     </div>
-                </div>
-                <div class="row">
-                    <br/><br/>
-                    <pre><code class="source-code language-csharp"><span class="token keyword">using</span> Unicorn<span class="token punctuation">.</span>Core<span class="token punctuation">.</span>Testing<span class="token punctuation">.</span>Tests<span class="token punctuation">.</span>Attributes<span class="token punctuation">;</span>
-<span class="token keyword">using</span> Unicorn<span class="token punctuation">.</span>ReportPortalAgent<span class="token punctuation">;</span>
-
-<span class="token keyword">namespace</span> Tests
-<span class="token punctuation">{</span>
-    <span class="token punctuation">[</span>TestsAssembly<span class="token punctuation">]</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">TestsAssembly</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">private</span> <span class="token keyword">static</span> ReportPortalReporterInstance rpInstance<span class="token punctuation">;</span>
-
-        <span class="token punctuation">[</span>RunInitialize<span class="token punctuation">]</span>
-        <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">InitRun</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token punctuation">{</span>
-            rpInstance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ReportPortalReporterInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Start new launch in Report Portal.</span>
-            
-            <span class="token comment">/* in case you want to report into already started existing launch use
-                * rpInstance = new ReportPortalReporterInstance(existing_launch_id); */</span>
-            
-        <span class="token punctuation">}</span>
-
-        <span class="token punctuation">[</span>RunFinalize<span class="token punctuation">]</span>
-        <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">FinalizeRun</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token punctuation">{</span>
-            reporter<span class="token punctuation">.</span><span class="token function">Dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Finish launch in Report portal if it was not externally started.</span>
-            reporter <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-                </div>
-
-                <div class="row">
-                    <br/><br/>
-                    <p>
-                        Place <b>ReportPortal.config.json</b> configuration file to directory with test assemblies. Sample content is presented below:
-                    </p>
-                </div>
-
-                <div class="row">
-                    <br/><br/>
-                    <pre class=" language-json"><code class="source-code language-json"><span class="token punctuation">{</span>
-    <span class="token keyword">"enabled"</span><span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-    <span class="token keyword">"server"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        <span class="token keyword">"url"</span><span class="token punctuation">:</span> <span class="token string">"https://report-portal-uri/api/v1/"</span><span class="token punctuation">,</span>
-        <span class="token keyword">"project"</span><span class="token punctuation">:</span> <span class="token string">"Some project"</span><span class="token punctuation">,</span>
-        <span class="token keyword">"authentication"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        <span class="token keyword">"uuid"</span><span class="token punctuation">:</span> <span class="token string">"your_uuid"</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token keyword">"launch"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        <span class="token keyword">"name"</span><span class="token punctuation">:</span> <span class="token string">"Unicorn tests run"</span><span class="token punctuation">,</span>
-        <span class="token keyword">"description"</span><span class="token punctuation">:</span> <span class="token string">"Unit tests of Unicorn Framework"</span><span class="token punctuation">,</span>
-        <span class="token keyword">"debugMode"</span><span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-        <span class="token keyword">"tags"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token string">"Windows 10"</span><span class="token punctuation">,</span> <span class="token string">"UnicornFramework"</span> <span class="token punctuation">]</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span> </code></pre>
                 </div>
             </div>
         </section>
@@ -196,57 +143,14 @@
                         
                         <p>
                             Just deploy Allure Framework instance, add tests project dependency to 
-                            <a href="https://www.nuget.org/packages/Unicorn.AllureAgent" class="link">Unicorn.AllureAgent</a> 
+                            <a href="https://www.nuget.org/packages/Unicorn.Reporting.Allure" class="link">Unicorn.Reporting.Allure</a> 
                             package and initialize reporter during tests assembly initialization.
                         </p>
+
+                        <p>
+                            See <a href="https://unicorn-taf.github.io/docs/reporting/allure-report-integration/" class="link">documentation</a> to learn how to integrate your tests with Allure reports.
+                        </p>
                     </div>
-                </div>
-                <div class="row">
-                    <br/><br/>
-                    <pre class=" language-csharp"><code class="source-code  language-csharp"><span class="token keyword">using</span> Unicorn<span class="token punctuation">.</span>AllureAgent<span class="token punctuation">;</span>
-<span class="token keyword">using</span> Unicorn<span class="token punctuation">.</span>Core<span class="token punctuation">.</span>Testing<span class="token punctuation">.</span>Tests<span class="token punctuation">.</span>Attributes<span class="token punctuation">;</span>
-
-<span class="token keyword">namespace</span> Tests
-<span class="token punctuation">{</span>
-    <span class="token punctuation">[</span>TestsAssembly<span class="token punctuation">]</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">TestsAssembly</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">private</span> <span class="token keyword">static</span> AllureReporterInstance reporter<span class="token punctuation">;</span>
-
-        <span class="token punctuation">[</span>RunInitialize<span class="token punctuation">]</span>
-        <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">InitRun</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token punctuation">{</span>
-            reporter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AllureReporterInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// starts new launch in Allure.</span>
-        <span class="token punctuation">}</span>
-
-        <span class="token punctuation">[</span>RunFinalize<span class="token punctuation">]</span>
-        <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">FinalizeRun</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token punctuation">{</span>
-            reporter<span class="token punctuation">.</span><span class="token function">Dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Unsubscribe allure reporter from unicorn events.</span>
-            reporter <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-                </div>
-
-                <div class="row">
-                    <br/><br/>
-                    <p>
-                        Place <b>allureConfig.json</b> configuration file to directory with test assemblies. Sample content is presented below:
-                    </p>
-                </div>
-
-                <div class="row">
-                    <br/><br/>
-                    <pre class=" language-json"><code class="source-code  language-json"><span class="token punctuation">{</span>
-    <span class="token keyword">"allure"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        <span class="token keyword">"directory"</span><span class="token punctuation">:</span> <span class="token string">"path_to_directory_with_report"</span><span class="token punctuation">,</span>
-        <span class="token keyword">"links"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
-            <span class="token string">"https://github.com/Unicorn-TAF/examples/issues/{issue}"</span><span class="token punctuation">,</span>
-            <span class="token string">"https://some-tms-url/{tms}"</span><span class="token punctuation">,</span>
-        <span class="token punctuation">]</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
                 </div>
             </div>
         </section>
@@ -266,61 +170,14 @@
                             <a href="https://www.nuget.org/packages/Unicorn.Reporting.TestIT" class="link">Unicorn.Reporting.TestIT</a> 
                             package and initialize reporter during tests assembly initialization.
                         </p>
+
+                        <p>
+                            See <a href="https://unicorn-taf.github.io/docs/reporting/testit-integration/" class="link">documentation</a> to learn how to integrate your tests with TestIT.
+                        </p>
                     </div>
                     <div class="col-sm-6 hidden-xs text-center">
                         <img src="assets/img/testit.png" height="360" alt="">
                     </div>
-                </div>
-                <div class="row">
-                    <br/><br/>
-                    <pre><code class="source-code language-csharp"><span class="token keyword">using</span> Unicorn<span class="token punctuation">.</span>Core<span class="token punctuation">.</span>Testing<span class="token punctuation">.</span>Tests<span class="token punctuation">.</span>Attributes<span class="token punctuation">;</span>
-<span class="token keyword">using</span> Unicorn<span class="token punctuation">.</span>Reporting<span class="token punctuation">.</span>TestIt<span class="token punctuation">;</span>
-
-<span class="token keyword">namespace</span> Tests
-<span class="token punctuation">{</span>
-    <span class="token punctuation">[</span>TestsAssembly<span class="token punctuation">]</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">TestsAssembly</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">private</span> <span class="token keyword">static</span> ReporterInstance instance<span class="token punctuation">;</span>
-
-        <span class="token punctuation">[</span>RunInitialize<span class="token punctuation">]</span>
-        <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">InitRun</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token punctuation">{</span>
-            <span class="token comment">// Initialize built-in TestIT reporter with automatic subscription to all testing events.</span>
-            instance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ReporterInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Start new launch in TestIT (if testRunId was not provided).</span>
-        <span class="token punctuation">}</span>
-
-        <span class="token punctuation">[</span>RunFinalize<span class="token punctuation">]</span>
-        <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">FinalizeRun</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token punctuation">{</span>
-            reporter<span class="token punctuation">.</span><span class="token function">Dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Unsubscribe reporter from unicorn events.</span>
-            reporter <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-                </div>
-
-                <div class="row">
-                    <br/><br/>
-                    <p>
-                        Place <b>Tms.config.json</b> configuration file to directory with test assemblies. Sample content is presented below:
-                    </p>
-                </div>
-
-                <div class="row">
-                    <br/><br/>
-                    <pre class=" language-json"><code class="source-code language-json"><span class="token punctuation">{</span>
-    <span class="token keyword">"url"</span><span class="token punctuation">:</span> <span class="token string">"url_to_testit_instance"</span><span class="token punctuation">,</span>
-    <span class="token keyword">"privateToken"</span><span class="token punctuation">:</span> <span class="token string">"token_value"</span><span class="token punctuation">,</span>
-    <span class="token keyword">"projectId"</span><span class="token punctuation">:</span> <span class="token string">"project_id_value"</span><span class="token punctuation">,</span>
-    <span class="token keyword">"configurationId"</span><span class="token punctuation">:</span> <span class="token string">"configuration_id_value"</span><span class="token punctuation">,</span>
-    <span class="token keyword">"testRunId"</span><span class="token punctuation">:</span> <span class="token string">"id_of_started_test_run (if id not specified, new run starts automatically)"</span><span class="token punctuation">,</span>
-    <span class="token keyword">"testRunName"</span><span class="token punctuation">:</span> <span class="token string">"custom_run_name_in_case_testRunId_is_not_specified"</span><span class="token punctuation">,</span>
-    <span class="token keyword">"automaticCreationTestCases"</span><span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-    <span class="token keyword">"automaticUpdationLinksToTestCases"</span><span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-    <span class="token keyword">"certValidation"</span><span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-    <span class="token keyword">"isDebug"</span><span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-<span class="token punctuation">}</span></code></pre>
                 </div>
             </div>
         </section>
