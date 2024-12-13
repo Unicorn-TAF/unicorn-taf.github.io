@@ -6,14 +6,16 @@ class Header extends HTMLElement {
         `
 <header id="masthead" class="site-header site-header-white">
     <nav id="primary-navigation" class="site-navigation">
-        
+                
         <div class="container">
-            <a href="home.html"><img src="assets/img/unicorn-logo-v2.png" height="55" class="navbar-left"></a>
+            <a href="index.html" class="navbar-left main-logo">
+                <img src="assets/img/unicorn-logo-v2.png" height="55">
+            </a>
 
             <div class="collapse navbar-collapse">
-
+                
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="home.html">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Tools<i class="fa fa-caret-down hidden-xs" aria-hidden="true"></i></a>
 
                         <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
@@ -23,18 +25,18 @@ class Header extends HTMLElement {
 
                     </li>
                     <li><a href="integrations.html">Integrations</a></li>
+                    <li><a href="docs/" target="_blank">Documentation</a></li>
                     <li><a href="examples.html">Examples</a></li>
                     <li>
-                        <a href="https://bitbucket.org/dobriyanchik/unicorntaf">
-                            <img src="assets/img/bitbucket-repo.png" alt="" title="Source code on Bitbucket">
+                        <a href="https://github.com/Unicorn-TAF">
+                            <img src="https://github.githubassets.com/favicons/favicon-dark.svg" height="20" alt="" title="Source code on GitHub">
                         </a>
                     </li>
                 </ul>
-
+                
             </div>
         </div>   
-    </nav><!-- /.site-navigation -->
-
+    </nav>
 </header>
         `
     }
