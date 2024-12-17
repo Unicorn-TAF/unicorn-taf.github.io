@@ -44,8 +44,8 @@ a:hover {
 
 p {
     margin-bottom: 0;
-    font-size: 16px;
-    font-weight: 300;
+    font-size: 18px;
+    font-weight: 400;
     color: #7c7d7e;
     line-height: 24px;
 }
@@ -70,8 +70,8 @@ p + p {
 .btn {
     line-height: 50px;
     min-width: 200px;
-    font-size: 16px;
-    font-weight: 300;
+    font-size: 18px;
+    font-weight: 400;
     border: 0;
     border-radius: 50px;
     color: #26272d;
@@ -151,7 +151,7 @@ button.btn:focus {
     right: 5px;
     line-height: 40px;
     min-width: 60px;
-    font-size: 16px;
+    font-size: 18px;
     border-radius: 25px;
 }
 
@@ -605,7 +605,8 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: 'Comfortaa', sans-serif;
+    font-family: system, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande", sans-serif;
+    font-weight: 400;
     color: #26272d;
 }
 
@@ -671,7 +672,7 @@ html, body {
 .navbar-nav > li > a, 
 .slicknav_nav > li > a {
     padding: 0;
-    font-size: 16px;
+    font-size: 18px;
     position: relative;
     color: #26272d;
     line-height: 26px;
@@ -780,7 +781,7 @@ a.nav-dd-item {
 /* HERO
 ================================================== */
 .hero { 
-    background: url(../img/hero.jpg) no-repeat center / cover; 
+    background: url(../img/wall.jpg) no-repeat center / cover; 
     height: 100%;
     width: 100%;
     display: table;
@@ -991,13 +992,13 @@ a.nav-dd-item {
 .counter {
     margin-bottom: 30px;
     font-size: 40px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1;
 }
 
 .counter-item h3 {
     margin: 0;
-    font-size: 16px;
+    font-size: 18px;
     color: #0960d7;
 }
 
@@ -1035,7 +1036,7 @@ a.nav-dd-item {
     position: absolute;
     left: 0px;
     margin: 0;
-    font-size: 16px;
+    font-size: 18px;
     opacity: 0;
 }
 
@@ -1090,7 +1091,7 @@ a.nav-dd-item {
 }
 
 .site-footer h3 {
-    font-size: 16px;
+    font-size: 18px;
     text-transform: uppercase;
     margin:0 0 40px;
 }
@@ -1132,9 +1133,9 @@ a.nav-dd-item {
 
 .list-unstyled li a,
 .list-unstyled li p {
-    font-size: 16px;
+    font-size: 18px;
     color: #8c8f94;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 .list-unstyled li a:hover,
@@ -1232,7 +1233,7 @@ a.linkedin-bg:hover {
 .portfolio-sorting li a {
     line-height: 40px;
     min-width: 120px;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .portfolio-sorting li .active {
@@ -1274,8 +1275,8 @@ a.linkedin-bg:hover {
 .contact-info h3 {
     margin: 0 0 10px 20px;
     color: #26292c;
-    font-size: 16px;
-    font-weight: 300; 
+    font-size: 18px;
+    font-weight: 400; 
 }
 
 .section-contact-us textarea {
@@ -1297,7 +1298,7 @@ a.linkedin-bg:hover {
 
 .contact-info .list-unstyled li {
     font-size: 14px;
-    font-weight: 300;
+    font-weight: 400;
     color: #8c8f94;
 }
 
